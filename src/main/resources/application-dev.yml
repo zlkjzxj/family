@@ -1,0 +1,16 @@
+
+#datasource
+spring:
+  datasource:
+    username: root
+    password: 1234!@#$qwerQWER
+#    证书报警告，加上后面这玩意就好了
+    url: jdbc:mysql://119.29.115.175:3306/family?useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+#mybatis
+
+#mybatis配置文件根据需要可以添加
+mybatis:
+  config-locations: classpath:mybatis/mybatis-config.xml
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.walle.family.bean

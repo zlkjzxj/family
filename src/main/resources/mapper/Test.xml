@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.walle.family.dao.TestDao">
+
+    <resultMap type="com.walle.family.bean.Test" id="TestResult">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+    </resultMap>
+
+    <select id="selectTestById" parameterType="INTEGER" resultType="com.walle.family.bean.Test">
+        SELECT * FROM test where id = #{id}
+    </select>
+
+    <select id="getTestList" resultMap="TestResult">
+        SELECT * FROM test
+    </select>
+
+    <!--添加的时候需要主键直接写上这两个参数，然后属性里面不写id主键就行了-->
+    <insert id="insertATest" parameterType="test" useGeneratedKeys="true" keyProperty="id">
+        insert into test(name,age) values(#{name},#{age});
+    </insert>
+
+    <update id="updateATest" parameterType="com.walle.family.bean.Test">
+        update test
+        <set>
+            -- 不填默认给你写成0了
+            <if test="age !=null and age !=0">
+                age=#{age},
+            </if>
+            <if test="name !=null and  !&quot;&quot;.equals(name.trim())">
+                name = #{name},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>
